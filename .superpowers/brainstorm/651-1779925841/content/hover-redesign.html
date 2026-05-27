@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hover Redesign</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 40px; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; color: #fff; }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 40px; }
+  .section { margin-bottom: 48px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+  .label { font-size: 12px; color: #555; margin-bottom: 8px; }
+
+  /* ========== OPTION A: Gros bouton play circulaire centré ========== */
+  .card-a {
+    position: relative;
+    background: #161616;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    overflow: hidden;
+  }
+  .card-a:hover {
+    border-color: #333;
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .card-a .name { font-size: 15px; font-weight: 600; color: #eee; }
+  .card-a .stack { font-size: 12px; color: #555; margin-top: 4px; }
+  .card-a .hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .card-a:hover .hover-overlay { opacity: 1; }
+  .card-a .play-btn {
+    width: 48px; height: 48px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #000;
+    font-size: 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 0 20px rgba(34,197,94,0.3);
+  }
+  .card-a .play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(34,197,94,0.5);
+  }
+  .card-a .gear-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #aaa;
+    font-size: 16px;
+    transition: background 0.15s ease;
+  }
+  .card-a .gear-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+
+  /* ========== OPTION B: Barre d'actions en bas qui slide up ========== */
+  .card-b {
+    position: relative;
+    background: #161616;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    overflow: hidden;
+  }
+  .card-b:hover {
+    border-color: #333;
+    background: #1a1a1a;
+  }
+  .card-b .name { font-size: 15px; font-weight: 600; color: #eee; }
+  .card-b .stack { font-size: 12px; color: #555; margin-top: 4px; }
+  .card-b .action-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.0));
+    padding: 24px 16px 12px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    transform: translateY(100%);
+    transition: transform 0.25s ease;
+  }
+  .card-b:hover .action-bar { transform: translateY(0); }
+  .card-b .play-btn {
+    padding: 6px 16px;
+    background: #22c55e;
+    border-radius: 8px;
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s ease;
+  }
+  .card-b .play-btn:hover { background: #16a34a; }
+  .card-b .play-btn svg { width: 14px; height: 14px; }
+  .card-b .gear-btn {
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: #aaa;
+    font-size: 14px;
+    display: flex; align-items: center;
+    transition: background 0.15s ease;
+  }
+  .card-b .gear-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+
+  /* ========== OPTION C: Icônes plus grosses haut droite avec scale ========== */
+  .card-c {
+    position: relative;
+    background: #161616;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .card-c:hover {
+    border-color: #333;
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .card-c .name { font-size: 15px; font-weight: 600; color: #eee; }
+  .card-c .stack { font-size: 12px; color: #555; margin-top: 4px; }
+  .card-c .actions {
+    position: absolute;
+    top: 12px; right: 12px;
+    display: flex; gap: 6px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .card-c:hover .actions { opacity: 1; transform: scale(1); }
+  .card-c .play-btn {
+    width: 34px; height: 34px;
+    background: #22c55e;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #000;
+    font-size: 16px;
+    transition: background 0.15s ease;
+    box-shadow: 0 2px 8px rgba(34,197,94,0.3);
+  }
+  .card-c .play-btn:hover { background: #16a34a; }
+  .card-c .gear-btn {
+    width: 34px; height: 34px;
+    background: #262626;
+    border: 1px solid #333;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #888;
+    font-size: 16px;
+    transition: all 0.15s ease;
+  }
+  .card-c .gear-btn:hover { background: #333; color: #fff; border-color: #444; }
+
+  /* Grid layout */
+  .cards-row { display: flex; gap: 24px; flex-wrap: wrap; }
+
+  /* Row variants */
+  .row-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+  }
+
+  /* Row A */
+  .row-a {
+    position: relative;
+    background: #161616;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+  .row-a:hover { background: #1a1a1a; border-color: #333; }
+  .row-a .info { flex: 1; }
+  .row-a .name { font-size: 14px; font-weight: 600; color: #eee; }
+  .row-a .stack { font-size: 12px; color: #555; margin-top: 2px; }
+  .row-a .actions {
+    display: flex; gap: 6px;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .row-a:hover .actions { opacity: 1; transform: translateX(0); }
+  .row-a .play-btn {
+    width: 32px; height: 32px;
+    background: #22c55e;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #000;
+    font-size: 14px;
+    transition: background 0.15s ease;
+    box-shadow: 0 2px 8px rgba(34,197,94,0.25);
+  }
+  .row-a .play-btn:hover { background: #16a34a; }
+  .row-a .gear-btn {
+    width: 32px; height: 32px;
+    background: #262626;
+    border: 1px solid #333;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #888;
+    font-size: 14px;
+    transition: all 0.15s ease;
+  }
+  .row-a .gear-btn:hover { background: #333; color: #fff; }
+
+  /* Selection indicator */
+  .option-wrap {
+    position: relative;
+    cursor: pointer;
+  }
+  .option-wrap.selected::after {
+    content: '✓';
+    position: absolute;
+    top: -8px; right: -8px;
+    width: 24px; height: 24px;
+    background: #22c55e;
+    color: #000;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: bold;
+  }
+  .option-label {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+  }
+  .option-desc {
+    text-align: center;
+    font-size: 11px;
+    color: #555;
+    margin-top: 4px;
+    max-width: 280px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Redesign du hover sur les cartes</h1>
+<p class="subtitle">Survole chaque option pour voir l'effet. Clique sur celle que tu préfères.</p>
+
+<div class="section">
+  <div class="section-title">Vue grille — 3 approches</div>
+  <div class="cards-row">
+
+    <div class="option-wrap" data-choice="a" onclick="select(this)">
+      <div class="card-a">
+        <div class="name">Mon App Web</div>
+        <div class="stack">React · Docker · Redis</div>
+        <div class="hover-overlay">
+          <div class="play-btn">▶</div>
+          <div class="gear-btn">⚙</div>
+        </div>
+      </div>
+      <div class="option-label">A — Overlay centré</div>
+      <div class="option-desc">Gros bouton play circulaire au centre, fond assombri. L'action est impossible à rater.</div>
+    </div>
+
+    <div class="option-wrap" data-choice="b" onclick="select(this)">
+      <div class="card-b">
+        <div class="name">Mon App Web</div>
+        <div class="stack">React · Docker · Redis</div>
+        <div class="action-bar">
+          <div class="gear-btn">⚙</div>
+          <div class="play-btn">▶ Lancer</div>
+        </div>
+      </div>
+      <div class="option-label">B — Barre slide-up</div>
+      <div class="option-desc">Barre d'actions qui monte depuis le bas avec gradient. Bouton "Lancer" avec texte.</div>
+    </div>
+
+    <div class="option-wrap" data-choice="c" onclick="select(this)">
+      <div class="card-c">
+        <div class="name">Mon App Web</div>
+        <div class="stack">React · Docker · Redis</div>
+        <div class="actions">
+          <div class="play-btn">▶</div>
+          <div class="gear-btn">⚙</div>
+        </div>
+      </div>
+      <div class="option-label">C — Haut droite amélioré</div>
+      <div class="option-desc">Comme avant mais icônes plus grosses (34px), effet scale-in, fond coloré, carte qui monte.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Vue liste — même style adapté</div>
+  <p style="color:#555; font-size:12px; margin-bottom:16px;">Le style s'adaptera automatiquement à celui choisi au-dessus</p>
+  <div class="row-demo">
+    <div class="row-a">
+      <div class="info">
+        <div class="name">Mon App Web</div>
+        <div class="stack">React · Docker · Redis</div>
+      </div>
+      <div class="actions">
+        <div class="play-btn">▶</div>
+        <div class="gear-btn">⚙</div>
+      </div>
+    </div>
+    <div class="row-a">
+      <div class="info">
+        <div class="name">API Backend</div>
+        <div class="stack">Rust · PostgreSQL</div>
+      </div>
+      <div class="actions">
+        <div class="play-btn">▶</div>
+        <div class="gear-btn">⚙</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let selected = null;
+  function select(el) {
+    if (selected) selected.classList.remove('selected');
+    el.classList.add('selected');
+    selected = el;
+
+    // Send event
+    const choice = el.dataset.choice;
+    if (window.__superpowers_event) {
+      window.__superpowers_event({ type: 'click', choice, text: el.querySelector('.option-label')?.textContent });
+    }
+  }
+</script>
+
+</body>
+</html>

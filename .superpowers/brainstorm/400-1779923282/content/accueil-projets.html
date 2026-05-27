@@ -1,0 +1,92 @@
+<h2>Accueil — Affichage des projets</h2>
+<p class="subtitle">Comment veux-tu voir tes projets sur la page d'accueil ?</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:240px; background:#111; border-radius:8px; overflow:hidden; font-family:monospace; font-size:12px; padding:20px;">
+        <div style="color:#888; font-size:13px; margin-bottom:16px;">Mes Projets</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+          <div style="background:#1e1e1e; border:1px solid #333; border-radius:10px; padding:16px; height:100px;">
+            <div style="width:32px; height:32px; background:#333; border-radius:8px; margin-bottom:10px;"></div>
+            <div style="color:#ddd; font-size:12px; font-weight:600;">Mon App Web</div>
+            <div style="color:#666; font-size:10px; margin-top:4px;">React · Docker · Redis</div>
+          </div>
+          <div style="background:#1e1e1e; border:1px solid #333; border-radius:10px; padding:16px; height:100px;">
+            <div style="width:32px; height:32px; background:#333; border-radius:8px; margin-bottom:10px;"></div>
+            <div style="color:#ddd; font-size:12px; font-weight:600;">API Backend</div>
+            <div style="color:#666; font-size:10px; margin-top:4px;">Rust · PostgreSQL</div>
+          </div>
+          <div style="background:transparent; border:1px dashed #444; border-radius:10px; height:100px; display:flex; align-items:center; justify-content:center; padding:16px;">
+            <div style="color:#555; font-size:24px;">+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Grille de cartes</h3>
+      <p>Cards en grid responsive. Chaque projet = une carte avec icône, nom, stack. Bouton "+" pour ajouter.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:240px; background:#111; border-radius:8px; overflow:hidden; font-family:monospace; font-size:12px; padding:20px;">
+        <div style="color:#888; font-size:13px; margin-bottom:16px;">Mes Projets</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="background:#1e1e1e; border:1px solid #333; border-radius:8px; padding:12px 16px; display:flex; align-items:center; gap:12px;">
+            <div style="width:28px; height:28px; background:#333; border-radius:6px; flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="color:#ddd; font-size:12px; font-weight:600;">Mon App Web</div>
+              <div style="color:#666; font-size:10px;">React · Docker · Redis</div>
+            </div>
+            <div style="color:#444; font-size:18px;">▶</div>
+          </div>
+          <div style="background:#1e1e1e; border:1px solid #333; border-radius:8px; padding:12px 16px; display:flex; align-items:center; gap:12px;">
+            <div style="width:28px; height:28px; background:#333; border-radius:6px; flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="color:#ddd; font-size:12px; font-weight:600;">API Backend</div>
+              <div style="color:#666; font-size:10px;">Rust · PostgreSQL</div>
+            </div>
+            <div style="color:#444; font-size:18px;">▶</div>
+          </div>
+          <div style="background:transparent; border:1px dashed #444; border-radius:8px; padding:12px 16px; display:flex; align-items:center; justify-content:center;">
+            <div style="color:#555; font-size:13px;">+ Nouveau projet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Liste verticale</h3>
+      <p>Chaque projet = une ligne avec icône, nom, stack et bouton de lancement. Plus compact, plus scannable.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:240px; background:#111; border-radius:8px; overflow:hidden; font-family:monospace; font-size:12px; padding:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div style="color:#888; font-size:13px;">Mes Projets</div>
+          <div style="display:flex; gap:4px;">
+            <div style="width:20px; height:20px; background:#333; border-radius:4px; display:flex; align-items:center; justify-content:center; color:#888; font-size:10px;">⊞</div>
+            <div style="width:20px; height:20px; background:#282828; border-radius:4px; display:flex; align-items:center; justify-content:center; color:#666; font-size:10px;">☰</div>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div style="background:#1e1e1e; border:1px solid #333; border-radius:10px; padding:14px; height:70px;">
+            <div style="color:#ddd; font-size:12px; font-weight:600;">Mon App Web</div>
+            <div style="color:#666; font-size:10px; margin-top:4px;">React · Docker · Redis</div>
+          </div>
+          <div style="background:#1e1e1e; border:1px solid #333; border-radius:10px; padding:14px; height:70px;">
+            <div style="color:#ddd; font-size:12px; font-weight:600;">API Backend</div>
+            <div style="color:#666; font-size:10px; margin-top:4px;">Rust · PostgreSQL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Hybride (toggle grille/liste)</h3>
+      <p>Bouton switch en haut pour alterner entre vue grille et vue liste. L'utilisateur choisit son affichage.</p>
+    </div>
+  </div>
+</div>

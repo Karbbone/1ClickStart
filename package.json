@@ -9,19 +9,26 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "tauri": "tauri",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "husky"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/vite": "^4.3.0",
     "@tauri-apps/api": "^2.11.0",
     "daisyui": "^5.5.20",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-router": "^7.15.1",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@tauri-apps/cli": "^2.11.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -31,11 +38,13 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
     "husky": "^9.1.7",
+    "jsdom": "^29.1.1",
     "lint-staged": "^17.0.5",
     "prettier": "^3.8.3",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "vitest": "^4.1.7"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,css,md}": "prettier --write",
