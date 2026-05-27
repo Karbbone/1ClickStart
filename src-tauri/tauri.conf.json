@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicoverali/tauri/dev/crates/tauri-config-schema/schema.json",
+  "productName": "1ClickProject",
+  "version": "0.1.0",
+  "identifier": "com.1clickproject.app",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "1ClickProject",
+        "width": 1024,
+        "height": 768
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ]
+  }
+}
