@@ -39,6 +39,27 @@ impl<R: Runtime> ProjectRepository for StoreProjectRepository<R> {
         Ok(())
     }
 
+    fn update(&self, project: &Project) -> Result<(), String> {
+        let projects: Vec<Project> = self
+            .list()?
+            .into_iter()
+            .map(|p| {
+                if p.id == project.id {
+                    project.clone()
+                } else {
+                    p
+                }
+            })
+            .collect();
+        let dtos: Vec<ProjectDto> = projects.into_iter().map(ProjectDto::from).collect();
+        self.store.set(
+            PROJECTS_KEY,
+            serde_json::to_value(dtos).map_err(|e| e.to_string())?,
+        );
+        self.store.save().map_err(|e| e.to_string())?;
+        Ok(())
+    }
+
     fn delete(&self, id: &str) -> Result<(), String> {
         let projects: Vec<Project> = self.list()?.into_iter().filter(|p| p.id != id).collect();
         let dtos: Vec<ProjectDto> = projects.into_iter().map(ProjectDto::from).collect();

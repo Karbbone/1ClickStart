@@ -8,3 +8,4 @@ export { ProjectList } from "./components/ProjectList";
 export { ProjectsPage } from "./components/ProjectsPage";
 export { AddProjectButton } from "./components/AddProjectButton";
 export { NewProjectPage } from "./components/NewProjectPage";
+export { EditProjectPage } from "./components/EditProjectPage";

@@ -1,14 +1,32 @@
 #[derive(Debug, Clone, PartialEq)]
+pub enum ProjectAction {
+    OpenBrowser {
+        url: String,
+    },
+    RunTerminal {
+        command: String,
+        open_in_terminal: bool,
+    },
+    OpenTerminal,
+}
+
+#[derive(Debug, Clone, PartialEq)]
 pub struct Project {
     pub id: String,
     pub name: String,
     pub path: String,
+    pub actions: Vec<ProjectAction>,
 }
 
 impl Project {
-    pub fn new(name: String, path: String) -> Self {
+    pub fn new(name: String, path: String, actions: Vec<ProjectAction>) -> Self {
         let id = uuid_v4();
-        Self { id, name, path }
+        Self {
+            id,
+            name,
+            path,
+            actions,
+        }
     }
 }
 

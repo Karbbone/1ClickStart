@@ -1,12 +1,16 @@
 import { Play, GearSix, Trash } from "@phosphor-icons/react";
+import { useNavigate } from "react-router";
 import type { Project } from "../types";
 
 interface ProjectRowProps {
   project: Project;
   onDelete?: (id: string) => void;
+  onLaunch?: (id: string) => void;
 }
 
-export function ProjectRow({ project, onDelete }: ProjectRowProps) {
+export function ProjectRow({ project, onDelete, onLaunch }: ProjectRowProps) {
+  const navigate = useNavigate();
+
   return (
     <div
       data-testid="project-row"
@@ -32,6 +36,7 @@ export function ProjectRow({ project, onDelete }: ProjectRowProps) {
           className="btn btn-sm btn-ghost text-base-content/60 hover:text-base-content"
           onClick={(e) => {
             e.stopPropagation();
+            navigate(`/projects/${project.id}/edit`);
           }}
         >
           <GearSix size={18} />
@@ -41,6 +46,7 @@ export function ProjectRow({ project, onDelete }: ProjectRowProps) {
           className="btn btn-sm btn-success gap-1"
           onClick={(e) => {
             e.stopPropagation();
+            onLaunch?.(project.id);
           }}
         >
           <Play size={14} weight="fill" />

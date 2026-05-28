@@ -25,3 +25,6 @@ Thumbs.db
 # Env
 *.local
 .env*
+
+# Superpowers
+.superpowers
