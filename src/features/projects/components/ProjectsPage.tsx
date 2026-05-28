@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ProjectGrid } from "./ProjectGrid";
 import { ProjectList } from "./ProjectList";
 import { ViewToggle } from "./ViewToggle";
-import { listProjects } from "../api";
+import { listProjects, deleteProject } from "../api";
 import type { ViewMode } from "../types";
 import type { Project } from "../types";
 
@@ -10,11 +10,20 @@ export function ProjectsPage() {
   const [view, setView] = useState<ViewMode>("list");
   const [projects, setProjects] = useState<Project[]>([]);
 
-  useEffect(() => {
+  const loadProjects = useCallback(() => {
     listProjects()
       .then(setProjects)
       .catch((err) => console.error("Failed to load projects:", err));
   }, []);
+
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
+
+  async function handleDelete(id: string) {
+    await deleteProject(id);
+    loadProjects();
+  }
 
   return (
     <div>
@@ -23,9 +32,9 @@ export function ProjectsPage() {
         <ViewToggle view={view} onViewChange={setView} />
       </div>
       {view === "grid" ? (
-        <ProjectGrid projects={projects} />
+        <ProjectGrid projects={projects} onDelete={handleDelete} />
       ) : (
-        <ProjectList projects={projects} />
+        <ProjectList projects={projects} onDelete={handleDelete} />
       )}
     </div>
   );

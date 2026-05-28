@@ -2,7 +2,7 @@ mod application;
 mod domain;
 mod infrastructure;
 
-use application::commands::{create_project, list_projects};
+use application::commands::{create_project, delete_project, list_projects};
 use infrastructure::StoreProjectRepository;
 use std::sync::Mutex;
 use tauri::Manager;
@@ -20,7 +20,11 @@ pub fn run() {
             app.manage(Mutex::new(repo));
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![create_project, list_projects])
+        .invoke_handler(tauri::generate_handler![
+            create_project,
+            delete_project,
+            list_projects
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

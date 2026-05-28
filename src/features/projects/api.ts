@@ -11,3 +11,7 @@ export async function createProject(
 ): Promise<Project> {
   return invoke<Project>("create_project", { request: { name, path } });
 }
+
+export async function deleteProject(id: string): Promise<void> {
+  return invoke("delete_project", { id });
+}

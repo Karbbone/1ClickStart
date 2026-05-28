@@ -1,11 +1,12 @@
-import { Play, GearSix } from "@phosphor-icons/react";
+import { Play, GearSix, Trash } from "@phosphor-icons/react";
 import type { Project } from "../types";
 
 interface ProjectRowProps {
   project: Project;
+  onDelete?: (id: string) => void;
 }
 
-export function ProjectRow({ project }: ProjectRowProps) {
+export function ProjectRow({ project, onDelete }: ProjectRowProps) {
   return (
     <div
       data-testid="project-row"
@@ -16,6 +17,16 @@ export function ProjectRow({ project }: ProjectRowProps) {
         <p className="text-sm text-base-content/50">{project.path}</p>
       </div>
       <div className="flex gap-2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+        <button
+          aria-label="Supprimer"
+          className="btn btn-sm btn-ghost text-base-content/40 hover:text-error"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete?.(project.id);
+          }}
+        >
+          <Trash size={16} />
+        </button>
         <button
           aria-label="Configurer"
           className="btn btn-sm btn-ghost text-base-content/60 hover:text-base-content"

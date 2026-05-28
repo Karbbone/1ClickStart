@@ -23,3 +23,12 @@ pub fn create_project(
     repo.save(&project)?;
     Ok(ProjectDto::from(project))
 }
+
+#[tauri::command]
+pub fn delete_project(
+    id: String,
+    repo: State<'_, Mutex<Box<dyn ProjectRepository>>>,
+) -> Result<(), String> {
+    let repo = repo.lock().map_err(|e| e.to_string())?;
+    repo.delete(&id)
+}
