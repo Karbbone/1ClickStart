@@ -19,3 +19,12 @@ test("renders sidebar and outlet", () => {
   expect(screen.getByRole("complementary")).toBeInTheDocument();
   expect(screen.getByTestId("outlet")).toBeInTheDocument();
 });
+
+test("renders toast container", () => {
+  render(
+    <MemoryRouter>
+      <AppLayout />
+    </MemoryRouter>,
+  );
+  expect(document.querySelector("[aria-live]")).toBeInTheDocument();
+});

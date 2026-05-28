@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(du -sh /c/Users/Clement/Documents/Code/1ClickProject/src*)",
+      "Bash(rtk git:*)",
+      "Bash(gh label:*)",
+      "Bash(gh issue:*)"
     ]
   }
 }
