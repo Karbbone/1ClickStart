@@ -6,3 +6,5 @@ export type { Project } from "./types";
 export { ProjectGrid } from "./components/ProjectGrid";
 export { ProjectList } from "./components/ProjectList";
 export { ProjectsPage } from "./components/ProjectsPage";
+export { AddProjectButton } from "./components/AddProjectButton";
+export { NewProjectPage } from "./components/NewProjectPage";

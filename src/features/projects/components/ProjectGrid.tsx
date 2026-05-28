@@ -1,5 +1,6 @@
 import type { Project } from "../types";
 import { ProjectCard } from "./ProjectCard";
+import { AddProjectButton } from "./AddProjectButton";
 
 interface ProjectGridProps {
   projects: Project[];
@@ -11,6 +12,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
       {projects.map((project) => (
         <ProjectCard key={project.id} project={project} />
       ))}
+      <AddProjectButton variant="card" />
     </div>
   );
 }

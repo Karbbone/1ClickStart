@@ -13,9 +13,7 @@ export function ProjectRow({ project }: ProjectRowProps) {
     >
       <div className="flex-1">
         <h3 className="font-semibold text-base-content">{project.name}</h3>
-        <p className="text-sm text-base-content/50">
-          {project.stack.join(" · ")}
-        </p>
+        <p className="text-sm text-base-content/50">{project.path}</p>
       </div>
       <div className="flex gap-2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
         <button

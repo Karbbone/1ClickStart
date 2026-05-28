@@ -12,9 +12,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="group relative bg-base-200 border border-base-300 rounded-xl p-4 overflow-hidden transition-colors hover:border-base-content/20"
     >
       <h3 className="font-semibold text-base-content">{project.name}</h3>
-      <p className="text-sm text-base-content/50 mt-1">
-        {project.stack.join(" · ")}
-      </p>
+      <p className="text-sm text-base-content/50 mt-1">{project.path}</p>
       <div className="absolute bottom-0 left-0 right-0 flex justify-end gap-2 px-4 pb-3 pt-8 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-200">
         <button
           aria-label="Configurer"

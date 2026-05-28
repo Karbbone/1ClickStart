@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajout de projet — Où et comment ?</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 40px; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; color: #fff; }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 40px; }
+  .section { margin-bottom: 48px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+
+  .options { display: flex; gap: 28px; flex-wrap: wrap; }
+
+  .option {
+    width: 340px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .option:hover { transform: translateY(-2px); }
+  .option.selected .mockup { border-color: #22c55e; }
+  .option.selected::after {
+    content: '✓';
+    position: absolute;
+    top: -8px; right: -8px;
+    width: 24px; height: 24px;
+    background: #22c55e;
+    color: #000;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: bold;
+  }
+  .option { position: relative; }
+
+  .mockup {
+    background: #111;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .mockup-label {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ccc;
+  }
+  .mockup-desc {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+    line-height: 1.5;
+    max-width: 340px;
+  }
+
+  /* App shell mock */
+  .app-shell {
+    display: flex;
+    height: 300px;
+    font-family: monospace;
+    font-size: 11px;
+  }
+  .mock-sidebar {
+    width: 40px;
+    background: #161616;
+    border-right: 1px solid #262626;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 12px;
+    gap: 10px;
+  }
+  .mock-icon {
+    width: 22px; height: 22px;
+    background: #333;
+    border-radius: 5px;
+  }
+  .mock-icon.active { background: #444; }
+  .mock-main {
+    flex: 1;
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  /* Project rows */
+  .mock-row {
+    background: #1a1a1a;
+    border: 1px solid #262626;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+  }
+  .mock-row .dot { width: 8px; height: 8px; background: #333; border-radius: 50%; margin-right: 8px; }
+  .mock-row .text { color: #aaa; font-size: 10px; }
+
+  /* Add button variations */
+  .mock-add-row {
+    border: 1px dashed #333;
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .mock-fab {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 40px; height: 40px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(34,197,94,0.3);
+  }
+
+  /* Modal mock */
+  .mock-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mock-modal {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    width: 260px;
+  }
+  .mock-modal h4 { color: #eee; font-size: 13px; margin-bottom: 12px; }
+  .mock-field {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 6px 10px;
+    color: #888;
+    font-size: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mock-field .label { color: #555; font-size: 9px; margin-bottom: 2px; }
+  .mock-field-group { margin-bottom: 10px; }
+  .mock-field-group .label { color: #666; font-size: 9px; margin-bottom: 4px; }
+  .mock-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .mock-btn-primary { background: #22c55e; color: #000; }
+  .mock-btn-ghost { background: transparent; color: #888; }
+
+  /* Page config mock */
+  .mock-page-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #262626;
+  }
+  .mock-back { color: #666; font-size: 14px; }
+  .mock-page-title { color: #eee; font-size: 13px; font-weight: 600; }
+  .mock-form-section {
+    margin-bottom: 12px;
+  }
+  .mock-form-label { color: #666; font-size: 9px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .highlight-box {
+    border: 2px solid #22c55e;
+    border-radius: 8px;
+    padding: 2px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { border-color: rgba(34,197,94,0.6); }
+    50% { border-color: rgba(34,197,94,1); }
+  }
+</style>
+</head>
+<body>
+
+<h1>Où placer l'ajout de projet ?</h1>
+<p class="subtitle">Flux : choisir un dossier → nom = nom du dossier → configurer → terminé. Clique sur l'option qui te parle.</p>
+
+<div class="section">
+  <div class="section-title">3 approches</div>
+  <div class="options">
+
+    <!-- Option A: Bouton + dans la liste -->
+    <div class="option" data-choice="a" onclick="select(this)">
+      <div class="mockup">
+        <div class="app-shell">
+          <div class="mock-sidebar">
+            <div class="mock-icon active"></div>
+            <div class="mock-icon"></div>
+          </div>
+          <div class="mock-main" style="position:relative;">
+            <div style="color:#888; font-size:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+              <span>Mes Projets</span>
+              <div style="display:flex;gap:4px;">
+                <div style="width:16px;height:16px;background:#262626;border-radius:3px;"></div>
+                <div style="width:16px;height:16px;background:#333;border-radius:3px;"></div>
+              </div>
+            </div>
+            <div class="mock-row"><div class="dot"></div><div class="text">Mon App Web</div></div>
+            <div class="mock-row"><div class="dot"></div><div class="text">API Backend</div></div>
+            <div class="highlight-box">
+              <div class="mock-add-row">+ Ajouter un projet</div>
+            </div>
+            <div style="margin-top:12px; color:#444; font-size:9px; text-align:center;">↓ ouvre le sélecteur de dossier natif</div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-label">A — Bouton "+" dans la liste</div>
+      <div class="mockup-desc">En dernière position de la liste. Clic → sélecteur de dossier natif (Tauri) → modal de config rapide. Simple et naturel.</div>
+    </div>
+
+    <!-- Option B: FAB (floating action button) -->
+    <div class="option" data-choice="b" onclick="select(this)">
+      <div class="mockup">
+        <div class="app-shell">
+          <div class="mock-sidebar">
+            <div class="mock-icon active"></div>
+            <div class="mock-icon"></div>
+          </div>
+          <div class="mock-main" style="position:relative;">
+            <div style="color:#888; font-size:12px; margin-bottom:10px;">Mes Projets</div>
+            <div class="mock-row"><div class="dot"></div><div class="text">Mon App Web</div></div>
+            <div class="mock-row"><div class="dot"></div><div class="text">API Backend</div></div>
+            <div class="mock-row"><div class="dot"></div><div class="text">Mobile App</div></div>
+            <div class="mock-fab highlight-box" style="border:none; animation:none;">+</div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-label">B — Bouton flottant (FAB)</div>
+      <div class="mockup-desc">Bouton vert en bas à droite, toujours visible même avec scroll. Clic → sélecteur de dossier → config. Style Material Design.</div>
+    </div>
+
+    <!-- Option C: Page dédiée via sidebar -->
+    <div class="option" data-choice="c" onclick="select(this)">
+      <div class="mockup">
+        <div class="app-shell">
+          <div class="mock-sidebar">
+            <div class="mock-icon active"></div>
+            <div class="mock-icon"></div>
+            <div style="flex:1;"></div>
+            <div class="mock-icon highlight-box" style="background:#22c55e; border:none; animation:none;"></div>
+          </div>
+          <div class="mock-main" style="position:relative;">
+            <div class="mock-page-header">
+              <span class="mock-back">←</span>
+              <span class="mock-page-title">Nouveau projet</span>
+            </div>
+            <div class="mock-form-section">
+              <div class="mock-form-label">Dossier</div>
+              <div class="mock-field">📁 C:\Users\Clement\...\1ClickProject</div>
+            </div>
+            <div class="mock-form-section">
+              <div class="mock-form-label">Nom du projet</div>
+              <div class="mock-field" style="color:#ccc;">1ClickProject</div>
+            </div>
+            <div class="mock-form-section">
+              <div class="mock-form-label">Services</div>
+              <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                <div style="background:#1a2e25; border:1px solid #3a7a5a; border-radius:4px; padding:2px 8px; color:#4a9; font-size:9px;">Docker</div>
+                <div style="background:#1a2e25; border:1px solid #3a7a5a; border-radius:4px; padding:2px 8px; color:#4a9; font-size:9px;">VS Code</div>
+                <div style="background:#1a1a1a; border:1px dashed #333; border-radius:4px; padding:2px 8px; color:#555; font-size:9px;">+ Ajouter</div>
+              </div>
+            </div>
+            <div style="margin-top:16px; display:flex; justify-content:flex-end; gap:6px;">
+              <div class="mock-btn mock-btn-ghost">Annuler</div>
+              <div class="mock-btn mock-btn-primary">Créer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-label">C — Icône "+" dans la sidebar</div>
+      <div class="mockup-desc">Bouton "+" en bas de la sidebar → ouvre une page dédiée de création. Plus d'espace pour configurer, formulaire complet.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let selected = null;
+  function select(el) {
+    if (selected) selected.classList.remove('selected');
+    el.classList.add('selected');
+    selected = el;
+    if (window.__superpowers_event) {
+      window.__superpowers_event({ type: 'click', choice: el.dataset.choice, text: el.querySelector('.mockup-label')?.textContent });
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 import type { Project } from "../types";
 import { ProjectRow } from "./ProjectRow";
+import { AddProjectButton } from "./AddProjectButton";
 
 interface ProjectListProps {
   projects: Project[];
@@ -11,6 +12,7 @@ export function ProjectList({ projects }: ProjectListProps) {
       {projects.map((project) => (
         <ProjectRow key={project.id} project={project} />
       ))}
+      <AddProjectButton variant="row" />
     </div>
   );
 }
