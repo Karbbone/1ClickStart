@@ -1,4 +1,4 @@
-export { SidebarIcon } from "./components/SidebarIcon";
-export { Sidebar } from "./components/Sidebar";
 export { AppLayout } from "./components/AppLayout";
+export { AppHeader } from "./components/AppHeader";
+export { AppLogo } from "./components/AppLogo";
 export { ToastProvider, useToast } from "./components/ToastContext";

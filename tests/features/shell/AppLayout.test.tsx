@@ -10,13 +10,13 @@ vi.mock("react-router", async () => {
   };
 });
 
-test("renders sidebar and outlet", () => {
+test("renders header and outlet", () => {
   render(
     <MemoryRouter>
       <AppLayout />
     </MemoryRouter>,
   );
-  expect(screen.getByRole("complementary")).toBeInTheDocument();
+  expect(screen.getByRole("banner")).toBeInTheDocument();
   expect(screen.getByTestId("outlet")).toBeInTheDocument();
 });
 
